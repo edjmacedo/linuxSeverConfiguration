@@ -42,7 +42,7 @@
 3. In next SSH connection use it will be necessary pass port parameter:
 
 ```
-ssh -i [privateKeyFilename] grader@18.219.75.94
+ssh -i [privateKeyFilename] grader@18.219.75.94 -p 2200
 ```
 
 ## Configure the Uncomplicated Firewall (UFW)
