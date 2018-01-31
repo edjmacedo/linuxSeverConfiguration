@@ -13,7 +13,7 @@
 1. Generate ssh keys on local machine `ssh-keygen`
 2. Create on instance a file for authorized keys
 
-	On virtual machine:
+	On Amazon instance:
 	```
 	$ su - grader
 	$ mkdir .ssh
