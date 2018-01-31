@@ -1,7 +1,7 @@
 # linuxSeverConfiguration
-WebAddress: http://ec2-18-219-75-216.us-east-2.compute.amazonaws.com
-IPAddress: 18.219.75.94
-SSH port: 2200
+1. WebAddress: http://ec2-18-219-75-216.us-east-2.compute.amazonaws.com
+2. IPAddress: 18.219.75.94
+3. SSH port: 2200
 
 ## Create a new ubuntu instance and user
 1. `Create one ubuntu instance on AWS service`
@@ -29,7 +29,7 @@ SSH port: 2200
 3. reload SSH using `sudo /etc/init.d/ssh restart`
 4. Login from your local machine to instance using SSH connection
 
-	`ssh -i [privateKeyFilename] grader@18.219.75.94 -p 2200`
+	`ssh -i [privateKeyFilename] grader@18.219.75.94`
 
 ## Update distribution with apt-get
 
@@ -39,6 +39,11 @@ SSH port: 2200
 ## Change the SSH port to 2200
 1. Use `sudo vim /etc/ssh/sshd_config`, search by `Port` and update to `2200`.
 2. Reload SSH using `sudo /etc/init.d/ssh restart`
+3. In next SSH connection use it will be necessary pass port parameter:
+
+```
+ssh -i [privateKeyFilename] grader@18.219.75.94
+```
 
 ## Configure the Uncomplicated Firewall (UFW)
 
@@ -103,24 +108,23 @@ SSH port: 2200
 	
 	```
 	<VirtualHost *:80>
-                ServerName 18.219.75.216
-                ServerAlias ec2-18-219-75-216.us-east-2.compute.amazonaws.com
-                ServerAdmin edvan.macedo.jr@gmail.com
-                WSGIScriptAlias / /var/www/ItemCatalog/vagrant/flaskapp.wsgi
-                <Directory /var/www/ItemCatalog/vagrant/ItemCatalog/>
-                        Order allow,deny
-                        Allow from all
-                </Directory>
-                Alias /static /var/www/ItemCatalog/vagrant/ItemCatalog/static
-                <Directory /var/www/ItemCatalog/vagrant/ItemCatalog/static/>
-                        Order allow,deny
-                        Allow from all
-                </Directory>
-                ErrorLog ${APACHE_LOG_DIR}/error.log
-                LogLevel warn
-                CustomLog ${APACHE_LOG_DIR}/access.log combined
- </VirtualHost>
-
+        ServerName 18.219.75.216
+        ServerAlias ec2-18-219-75-216.us-east-2.compute.amazonaws.com
+        ServerAdmin edvan.macedo.jr@gmail.com
+        WSGIScriptAlias / /var/www/ItemCatalog/vagrant/flaskapp.wsgi
+        <Directory /var/www/ItemCatalog/vagrant/ItemCatalog/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        Alias /static /var/www/ItemCatalog/vagrant/ItemCatalog/static
+        <Directory /var/www/ItemCatalog/vagrant/ItemCatalog/static/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
 	```
 3. Enable the virtual host with the following command: `sudo a2ensite ItemApplication`
 4. Restart Apache: `sudo /etc/init.d/apache2 restart`
