@@ -1,6 +1,6 @@
 # linuxSeverConfiguration
 1. WebAddress: http://ec2-18-219-75-216.us-east-2.compute.amazonaws.com
-2. IPAddress: 18.219.75.94
+2. IPAddress: 18.219.75.216
 3. SSH port: 2200
 
 ## Create a new ubuntu instance and user
@@ -29,20 +29,21 @@
 3. reload SSH using `sudo /etc/init.d/ssh restart`
 4. Login from your local machine to instance using SSH connection
 
-	`ssh -i [privateKeyFilename] grader@18.219.75.94`
+	`ssh -i [privateKeyFilename] grader@18.219.75.216`
 
 ## Update distribution with apt-get
 
 	sudo apt update
 	sudo apt upgrade
 
-## Change the SSH port to 2200
+## Change the SSH port to 2200 and deny root login
 1. Use `sudo vim /etc/ssh/sshd_config`, search by `Port` and update to `2200`.
-2. Reload SSH using `sudo /etc/init.d/ssh restart`
-3. In next SSH connection use it will be necessary pass port parameter:
+2. In PermitRootLogin, update value to `no`
+3. Reload SSH using `sudo /etc/init.d/ssh restart`
+4. In next SSH connection use it will be necessary pass port parameter:
 
 ```
-ssh -i [privateKeyFilename] grader@18.219.75.94 -p 2200
+ssh -i [privateKeyFilename] grader@18.219.75.216 -p 2200
 ```
 
 ## Configure the Uncomplicated Firewall (UFW)
